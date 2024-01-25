@@ -58,5 +58,8 @@ public class playerscript : MonoBehaviour
         targetDir.Normalize();
         currentDir = Vector2.SmoothDamp(currentDir, targetDir, ref currentDirVelocity, moveSmoothTime);
         velocityY += gravity * Time.deltaTime;
+        Vector3 velocity = (transform.forward * currentDir.y + transform.right * currentDir.x) * speed + Vector3.up * velocityY;
+        controller.Move(velocity * Time.deltaTime);
+        if (isGrounded && Input.GetButtonDown("Jump"))
     }
 }
