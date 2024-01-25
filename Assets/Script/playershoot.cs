@@ -14,6 +14,7 @@ public class PlayerShootingHandler : MonoBehaviour
     private LineRenderer bulletTrail;
     private float nextFire;
     private int damage;
+    [SerializeField] GameManager gameManager;
 
     void Start()
     {
@@ -42,6 +43,7 @@ public class PlayerShootingHandler : MonoBehaviour
                 if (hit.transform.gameObject.tag == "Enemy")
                 {
                     hit.transform.gameObject.GetComponent<EnemyAI>().Damage();
+                    gameManager.score += 47;
                 }
 
             }
