@@ -4,11 +4,11 @@ public class ShootingScript : MonoBehaviour
 {
     public Transform gunTransform; // The transform of the gun or shooting point
     public TrailRenderer trailRenderer;
-    public float raycastDistance = 100f;
+    public float raycastDistance = 30f;
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetButtonDown("Fire1"))
         {
             Shoot();
         }
