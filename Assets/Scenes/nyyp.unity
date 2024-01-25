@@ -701,6 +701,7 @@ MonoBehaviour:
   fireRate: 1
   gunEnd: {fileID: 381167285}
   player: {fileID: 145204435}
+  camera: {fileID: 0}
 --- !u!120 &145204444
 LineRenderer:
   serializedVersion: 2
