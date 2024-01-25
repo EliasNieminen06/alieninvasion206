@@ -41,7 +41,7 @@ public class PlayerShootingHandler : MonoBehaviour
 
                 if (hit.transform.gameObject.tag == "Enemy")
                 {
-                    // damage the enemy
+                    hit.transform.gameObject.GetComponent<EnemyAI>().Damage();
                 }
 
             }

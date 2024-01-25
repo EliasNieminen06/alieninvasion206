@@ -7,10 +7,12 @@ public class EnemyAI : MonoBehaviour
 {
     [SerializeField] Transform maaranPaa;
     [SerializeField] NavMeshAgent olio;
+    [SerializeField] float health;
     // Start is called before the first frame update
     void Start()
     {
-        
+        olio = GetComponent<NavMeshAgent>();
+        health = 100;
     }
 
     // Update is called once per frame
@@ -18,5 +20,14 @@ public class EnemyAI : MonoBehaviour
     {
         Vector3 olioMaaranPaa = new Vector3(maaranPaa.position.x, maaranPaa.position.y, maaranPaa.position.z);
         olio.SetDestination(olioMaaranPaa);
+        if (health <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    public void Damage()
+    {
+        health -= 50;
     }
 }
