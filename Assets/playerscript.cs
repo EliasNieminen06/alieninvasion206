@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class playerscript : MonoBehaviour
 {
-    [SerializeField] Transform playerCamera;
+    [SerializeField] Transform pelaajaKamera;
     [SerializeField] [Range(0.0f, 0.5f)] float mouseSmoothTime;
-    [SerializeField] bool lockCursor;
+    [SerializeField] bool osoitinLukko;
     [SerializeField] float mouseSensitivity = 3.5f;
     [SerializeField] float speed = 6f;
     [SerializeField] [Range(0.0f, 0.5f)] float moveSmoothTime;
@@ -15,19 +15,19 @@ public class playerscript : MonoBehaviour
     [SerializeField] LayerMask ground;
     [SerializeField] float jumpHeight = 6;
     private float velocityY;
-    private bool isGrounded;
+    private bool onMaassa;
     private float cameraCap;
     private Vector2 currentMouseDelta;
     private Vector2 currentMouseDeltaVelocity;
-    private CharacterController controller;
+    private CharacterController ohjain;
     private Vector2 currentDirVelocity;
     private Vector2 currentDir;
     private Vector3 velocity;
     // Start is called before the first frame update
     void Start()
     {
-        controller = GetComponent<CharacterController>();
-        if (lockCursor)
+        ohjain = GetComponent<CharacterController>();
+        if (osoitinLukko)
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -47,24 +47,24 @@ public class playerscript : MonoBehaviour
         currentMouseDelta = Vector2.SmoothDamp(currentMouseDelta, targetMouseDelta, ref currentMouseDeltaVelocity, mouseSmoothTime);
         cameraCap -= currentMouseDelta.y * mouseSensitivity;
         cameraCap = Mathf.Clamp(cameraCap, -90, 90);
-        playerCamera.localEulerAngles = Vector3.right * cameraCap;
+        pelaajaKamera.localEulerAngles = Vector3.right * cameraCap;
         transform.Rotate(Vector3.up * currentMouseDelta.x * mouseSensitivity);
     }
 
     void PaivitaLiike()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, 0.2f, ground);
+        onMaassa = Physics.CheckSphere(groundCheck.position, 0.2f, ground);
         Vector2 targetDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         targetDir.Normalize();
         currentDir = Vector2.SmoothDamp(currentDir, targetDir, ref currentDirVelocity, moveSmoothTime);
         velocityY += gravity * Time.deltaTime;
         Vector3 velocity = (transform.forward * currentDir.y + transform.right * currentDir.x) * speed + Vector3.up * velocityY;
-        controller.Move(velocity * Time.deltaTime);
-        if (isGrounded && Input.GetButtonDown("Jump"))
+        ohjain.Move(velocity * Time.deltaTime);
+        if (onMaassa && Input.GetButtonDown("Jump"))
         {
             velocityY = Mathf.Sqrt(jumpHeight * -2 * gravity);
         }
-        if (isGrounded && velocityY < 1f)
+        if (onMaassa && velocityY < 1f)
         {
             velocityY = -8;
         }
