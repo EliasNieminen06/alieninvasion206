@@ -388,7 +388,6 @@ Transform:
   m_Children:
   - {fileID: 1629858290}
   - {fileID: 963194228}
-  - {fileID: 381167285}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!208 &145204442
@@ -419,12 +418,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bcfba61f35464936a47d1fa35d97755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunTransform: {fileID: 381167285}
-  trailRenderer: {fileID: 145204444}
-  raycastDistance: 100
---- !u!96 &145204444
-TrailRenderer:
-  serializedVersion: 3
+  gunDamage: 10
+  weaponRange: 30
+  fireRate: 1
+  gunEnd: {fileID: 381167285}
+  player: {fileID: 145204435}
+--- !u!120 &145204444
+LineRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -464,8 +465,9 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 5
-  m_PreviewTimeScale: 1
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
@@ -486,8 +488,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.82009786, g: 0.5235849, b: 1, a: 1}
-      key1: {r: 0.82009786, g: 0.5235849, b: 1, a: 1}
+      key0: {r: 0.6087471, g: 0.3160377, b: 1, a: 1}
+      key1: {r: 0.6087471, g: 0.3160377, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -521,10 +523,9 @@ TrailRenderer:
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
-  m_MinVertexDistance: 0.1
   m_MaskInteraction: 0
-  m_Autodestruct: 0
-  m_Emitting: 1
+  m_UseWorldSpace: 1
+  m_Loop: 0
   m_ApplyActiveColorSpace: 1
 --- !u!1 &381167284
 GameObject:
@@ -550,12 +551,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 381167284}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.25, y: 0.25, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.25, y: -0.5, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 145204441}
+  m_Father: {fileID: 963194228}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &590860995
 GameObject:
@@ -908,7 +909,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 381167285}
   m_Father: {fileID: 145204441}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1629858289

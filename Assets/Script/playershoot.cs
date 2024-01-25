@@ -1,39 +1,65 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootingScript : MonoBehaviour
+public class PlayerShootingHandler : MonoBehaviour
 {
-    public Transform gunTransform; // The transform of the gun or shooting point
-    public TrailRenderer trailRenderer;
-    public float raycastDistance = 30f;
+    public int gunDamage;
+    public int weaponRange;
+    public float fireRate;
+    public Transform gunEnd;
+    public GameObject player;
+    private WaitForSeconds shotDuration;
+    private LineRenderer bulletTrail;
+    private float nextFire;
+    private int damage;
 
+    void Start()
+    {
+        gunDamage = 1;
+        fireRate = 0.25f;
+        weaponRange = 20;
+        shotDuration = new WaitForSeconds(0.07f);
+
+        bulletTrail = GetComponent<LineRenderer>();
+        player = this.gameObject;
+        damage = 1;
+
+    }
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && Time.time > nextFire)
         {
-            Shoot();
+            nextFire = Time.time + fireRate;
+            Vector3 endPos = gunEnd.transform.position + player.transform.forward * weaponRange;
+            RaycastHit hit;
+            bulletTrail.SetPosition(0, gunEnd.position);
+
+            if (Physics.Raycast(gunEnd.transform.position, gunEnd.transform.forward, out hit, weaponRange))
+            {
+                bulletTrail.SetPosition(1, hit.point);
+
+                if (hit.transform.gameObject.tag == "Enemy")
+                {
+                    // damage the enemy
+                }
+
+            }
+            else
+            {
+                bulletTrail.SetPosition(1, endPos);
+            }
+            StartCoroutine(ShotEffect());
+
         }
     }
 
-    void Shoot()
+    private IEnumerator ShotEffect()
     {
-        // Cast a ray from the gunTransform forward
-        Ray ray = new Ray(gunTransform.position, gunTransform.forward);
-        RaycastHit hit;
+        bulletTrail.enabled = true;
 
-        if (Physics.Raycast(ray, out hit, raycastDistance))
-        {
-            // If the ray hits something, set the end position to the hit point
-            trailRenderer.Clear();
-            trailRenderer.AddPosition(gunTransform.position);
-            trailRenderer.AddPosition(hit.point);
-        }
-        else
-        {
-            // If the ray doesn't hit anything, set the end position to the limit
-            Vector3 endPoint = ray.GetPoint(raycastDistance);
-            trailRenderer.Clear();
-            trailRenderer.AddPosition(gunTransform.position);
-            trailRenderer.AddPosition(endPoint);
-        }
+        yield return shotDuration;
+
+        bulletTrail.enabled = false;
     }
 }
