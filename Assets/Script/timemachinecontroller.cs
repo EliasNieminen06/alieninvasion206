@@ -7,8 +7,6 @@ public class timemachinecontroller : MonoBehaviour
 {
     public float health = 100;
     public GameObject tmobj;
-    public AudioClip sound;
-    private AudioSource adso;
 
     public void OnTriggerEnter(Collider other)
     {

@@ -15,6 +15,8 @@ public class PlayerShootingHandler : MonoBehaviour
     private float nextFire;
     private int damage;
     [SerializeField] GameManager gameManager;
+    [SerializeField] AudioSource adso;
+    public AudioClip shoot;
 
     void Start()
     {
@@ -32,6 +34,8 @@ public class PlayerShootingHandler : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1") && Time.time > nextFire)
         {
+            adso.clip = shoot;
+            adso.Play();
             nextFire = Time.time + fireRate;
             Vector3 endPos = camera.transform.position + camera.transform.forward * weaponRange;
             RaycastHit hit;
