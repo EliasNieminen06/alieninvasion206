@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class timemachinecontroller : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public class timemachinecontroller : MonoBehaviour
         if (health <= 0)
         {
             tmobj.GetComponent<MeshRenderer>().enabled = false;
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+            SceneManager.LoadScene("menu");
         }
     }
 }
