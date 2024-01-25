@@ -61,5 +61,12 @@ public class playerscript : MonoBehaviour
         Vector3 velocity = (transform.forward * currentDir.y + transform.right * currentDir.x) * speed + Vector3.up * velocityY;
         controller.Move(velocity * Time.deltaTime);
         if (isGrounded && Input.GetButtonDown("Jump"))
+        {
+            velocityY = Mathf.Sqrt(jumpHeight * -2 * gravity);
+        }
+        if (isGrounded && velocityY < 1f)
+        {
+            velocityY = -8;
+        }
     }
 }
