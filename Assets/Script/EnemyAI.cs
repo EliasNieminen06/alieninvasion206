@@ -13,6 +13,7 @@ public class EnemyAI : MonoBehaviour
     {
         olio = GetComponent<NavMeshAgent>();
         health = 100;
+        maaranPaa = GameObject.FindGameObjectWithTag("maaranPaa").transform;
     }
 
     // Update is called once per frame
