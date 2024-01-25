@@ -9,6 +9,7 @@ public class PlayerShootingHandler : MonoBehaviour
     public float fireRate;
     public Transform gunEnd;
     public GameObject player;
+    public GameObject camera;
     private WaitForSeconds shotDuration;
     private LineRenderer bulletTrail;
     private float nextFire;
@@ -31,14 +32,13 @@ public class PlayerShootingHandler : MonoBehaviour
         if (Input.GetButtonDown("Fire1") && Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
-            Vector3 endPos = gunEnd.transform.position + player.transform.forward * weaponRange;
+            Vector3 endPos = camera.transform.position + camera.transform.forward * weaponRange;
             RaycastHit hit;
             bulletTrail.SetPosition(0, gunEnd.position);
 
-            if (Physics.Raycast(gunEnd.transform.position, gunEnd.transform.forward, out hit, weaponRange))
+            if (Physics.Raycast(gunEnd.transform.position, camera.transform.forward, out hit, weaponRange))
             {
-                bulletTrail.SetPosition(1, hit.point);
-
+                bulletTrail.SetPosition(1, endPos);
                 if (hit.transform.gameObject.tag == "Enemy")
                 {
                     hit.transform.gameObject.GetComponent<EnemyAI>().Damage();
@@ -47,7 +47,7 @@ public class PlayerShootingHandler : MonoBehaviour
             }
             else
             {
-                bulletTrail.SetPosition(1, gunEnd.transform.forward * weaponRange);
+                bulletTrail.SetPosition(1, endPos);
             }
             StartCoroutine(ShotEffect());
 
