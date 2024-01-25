@@ -8,6 +8,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] Transform maaranPaa;
     [SerializeField] NavMeshAgent olio;
     [SerializeField] float health;
+    public GameObject tmobj;
     // Start is called before the first frame update
     void Start()
     {

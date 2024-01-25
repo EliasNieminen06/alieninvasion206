@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - maaranPaa
+  - timemachine
   layers:
   - Default
   - TransparentFX
