@@ -47,7 +47,7 @@ public class PlayerShootingHandler : MonoBehaviour
             }
             else
             {
-                bulletTrail.SetPosition(1, endPos);
+                bulletTrail.SetPosition(1, gunEnd.transform.forward * weaponRange);
             }
             StartCoroutine(ShotEffect());
 
